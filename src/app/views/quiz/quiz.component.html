@@ -1,0 +1,32 @@
+<div class="container">
+    <div *ngFor="let question of questions">
+        <div *ngIf="question.freeText">
+            <div class="form-group">
+                <label for="formGroupExampleInput">
+                    <h4>{{ question.question }}</h4> 
+                </label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div *ngIf="!question.freeText">
+            <div class="form-group">
+                <label for="formGroupExampleInput">
+                   <h4>{{ question.question }}</h4> 
+                </label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" [id]="'S_' + question.id" value="S">
+                    <label class="form-check-label" for="exampleRadios1">
+                        Sim
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" [id]="'N_' + question.id" value="N">
+                    <label class="form-check-label" for="exampleRadios2">
+                        Não
+                    </label>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <button class="margin" mat-raised-button color="primary">Enviar</button>
+</div>

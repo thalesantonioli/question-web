@@ -1,0 +1,7 @@
+<div class="container">
+    <div *ngFor="let quiz of quizList">
+        <div class="row">
+            <button class="margin" mat-raised-button color="primary" [routerLink]="['../quiz', quiz.id]">{{ quiz.name }}</button>
+        </div>
+    </div>
+</div>
