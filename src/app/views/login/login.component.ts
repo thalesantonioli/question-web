@@ -12,21 +12,41 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class LoginComponent implements OnInit {
 
     isLoggedIn: boolean = false;
+    emailSend: boolean = false;
 
     loginForm: FormGroup = this.formBuilder.group({
         email: '',
-        password: ''
+        code: ''
     });
 
     constructor(private formBuilder: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) { }
 
     ngOnInit(): void {
+
     }
 
-    onSubmit(): void {
+    enviar() : void {
         const { email } = this.loginForm.value;
+        if(!email){
+            alert("Preencher o campo email.")
+        } else {
+            this.authService.enviar(email).subscribe(
+                data => {
+                    if (data) {
+                        this.emailSend = true;
+                    }
+                },
+                err => {
+                    alert("Erro ao enviar código: " + err.error.message);
+                    this.loginForm.reset();
+                }
+            )
+        }
+    }
+
+    validar(): void {
         let successLogin: boolean = false;
-        this.authService.login(email).subscribe(
+        this.authService.validar(this.loginForm.value).subscribe(
             data => {
                 if (data) {
                     successLogin = true;
