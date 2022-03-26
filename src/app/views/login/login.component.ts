@@ -31,10 +31,8 @@ export class LoginComponent implements OnInit {
             alert("Preencher o campo email.")
         } else {
             this.authService.enviar(email).subscribe(
-                data => {
-                    if (data) {
-                        this.emailSend = true;
-                    }
+                () => {
+                    this.emailSend = true;
                 },
                 err => {
                     alert("Erro ao enviar código: " + err.error.message);
@@ -45,17 +43,9 @@ export class LoginComponent implements OnInit {
     }
 
     validar(): void {
-        let successLogin: boolean = false;
         this.authService.validar(this.loginForm.value).subscribe(
-            data => {
-                if (data) {
-                    successLogin = true;
-                }
-                if (successLogin) {
-                    this.router.navigate(['/quiz']);
-                } else {
-                    alert("Login ou Senha inválidos")
-                }
+            () => {
+                this.router.navigate(['/quiz']);
             },
             err => {
                 alert("Erro no login: " + err.error.message);
