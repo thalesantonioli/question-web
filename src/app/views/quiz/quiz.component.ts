@@ -54,14 +54,16 @@ export class QuizComponent implements OnInit {
     )
   }
 
-  changeValue(value: any, id: any){
+  changeValue(value: any, id: any, text?: any){
     let answer: Anwser;
     if(this.anwserCreate.answerDTOList){
       answer = this.anwserCreate.answerDTOList.filter(a => a.questionId === id)[0];
       
       if(!answer){
-        this.insertIntoArray(value, id);
-      } else {
+        this.insertIntoArray(value, id, text);
+      } else if (text){
+        answer.description = text;
+      } else{
         answer.answer = value;
       }
     } else {
@@ -69,11 +71,16 @@ export class QuizComponent implements OnInit {
     }
   }
 
-  insertIntoArray(value: any, id: any){
+  insertIntoArray(value: any, id: any, text?: any){
       let answer: Anwser;
       answer = {} as Anwser
       answer.questionId = id;
-      answer.answer = value;
+      
+      if (text){
+        answer.description = text;
+      } else{
+        answer.answer = value;
+      }
 
       let array: any = this.anwserCreate.answerDTOList as [];
       if(!array){
@@ -84,6 +91,6 @@ export class QuizComponent implements OnInit {
   }
 
   inputChange(event: any, id: any) {
-    this.changeValue((event.target as HTMLInputElement)?.value, id);
+    this.changeValue(null, id, (event.target as HTMLInputElement)?.value);
   }
 }
