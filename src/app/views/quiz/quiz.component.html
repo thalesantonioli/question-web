@@ -5,7 +5,7 @@
                 <label for="formGroupExampleInput">
                     <h4>{{ question.question }}</h4> 
                 </label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" (change)="inputChange($event, question.id)">
             </div>
         </div>
         <div *ngIf="!question.freeText">
@@ -14,19 +14,19 @@
                    <h4>{{ question.question }}</h4> 
                 </label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" [id]="'S_' + question.id" value="S">
-                    <label class="form-check-label" for="exampleRadios1">
+                    <input class="form-check-input" type="radio" [id]="" [name]="'radio_' + question.id" (change)="changeValue(true, question.id)">
+                    <label class="form-check-label" for="'radio_' + question.id">
                         Sim
                     </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" [id]="'N_' + question.id" value="N">
-                    <label class="form-check-label" for="exampleRadios2">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" [name]="'radio_' + question.id" (change)="changeValue(false, question.id)">
+                    <label class="form-check-label" for="'radio_' + question.id">
                         Não
                     </label>
-                  </div>
+                </div>
             </div>
         </div>
     </div>
-    <button class="margin" mat-raised-button color="primary">Enviar</button>
+    <button class="margin" mat-raised-button color="primary" (click)="enviar()">Enviar</button>
 </div>

@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
     validar(): void {
         this.authService.validar(this.loginForm.value).subscribe(
             () => {
+                localStorage.setItem('email', this.loginForm.value.email)
                 this.router.navigate(['/quiz']);
             },
             err => {
